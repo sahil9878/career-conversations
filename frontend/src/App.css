@@ -1,0 +1,49 @@
+nav ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+nav ul a {
+    display: flex;
+    gap: 0.5em;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+}
+
+nav ul a:hover {
+    text-decoration: underline;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 40% 60%;
+}
+
+section.intro {
+    padding: 2em;
+}
+
+section.conversation {
+    padding: 0 3em 0 1em;
+}
+
+/* https://patterncraft.fun/ */
+div.background__pattern {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: linear-gradient(to right, #d1d5db 1px, transparent 1px), linear-gradient(to bottom, #d1d5db 1px, transparent 1px);
+    background-size: 32px 32px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 80% at 100% 0%, #000 50%, transparent 90%);
+    mask-image:
+        radial-gradient(ellipse 80% 80% at 100% 0%, #000 50%, transparent 90%)
+}
+
+div.chat-widget {
+    min-width: 100%;
+    min-height: 100%;
+    background: #f9fafb;
+    border-radius: 1em;
+    border: 1px solid #e5e7eb;
+}
