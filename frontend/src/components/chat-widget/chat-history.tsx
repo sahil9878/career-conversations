@@ -1,4 +1,4 @@
-import type { FunctionComponent } from "react";
+import { useEffect, type FunctionComponent } from "react";
 import type { Message } from "../../hooks/useSendMessage";
 
 interface ChatHistoryProps {
@@ -7,6 +7,18 @@ interface ChatHistoryProps {
 }
 
 const ChatHistory: FunctionComponent<ChatHistoryProps> = ({ history, loading }) => {
+
+    useEffect(() => {
+        const chatHistoryDiv = document.querySelector('.chat-widget__chat-history');
+        if (chatHistoryDiv) {
+            const lastMessage = chatHistoryDiv.lastElementChild;
+            if (lastMessage) {
+                lastMessage.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    }, [history]);
+
+
     return (<div className="chat-widget__chat-history">
         {history.map((msg, index) => (
             <div key={index} className={`chat-widget__chat-message chat-widget__chat-message--${msg.user === "user" ? "user" : "bot"}`}>

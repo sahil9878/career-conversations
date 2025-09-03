@@ -20,7 +20,6 @@ const MessageInput: FunctionComponent<MessageInputProps> = ({ sendMessage, loadi
     };
 
     const onSendClick = () => {
-        console.log(`Sent text ${inputText}`)
         sendMessage(inputText);
         setInputText("")
     }

@@ -47,7 +47,6 @@ section.conversation {
 
 
 .chat-widget {
-    flex-grow: 1;
     display: flex;
     min-width: 100%;
     min-height: 500px;
@@ -116,15 +115,18 @@ section.conversation {
 @media (max-width: 768px) {
     main {
         grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        height: 100vh;
     }
 
     section.intro {
-        padding: 0 1em;
+        padding: 1em 1em 0;
     }
 
     section.conversation {
-        padding: 0 1em 0.5em;
-        max-height: 50vh;
+        padding: 0 1em 1em;
+        max-height: unset;
+        overflow-y: scroll;
     }
 
     div.background__pattern {
