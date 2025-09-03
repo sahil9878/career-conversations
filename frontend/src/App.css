@@ -6,7 +6,6 @@ nav ul {
 nav ul a {
     display: flex;
     gap: 0.5em;
-    cursor: pointer;
     text-decoration: none;
     color: inherit;
 }
@@ -20,15 +19,6 @@ main {
     grid-template-columns: 40% 60%;
 }
 
-section.intro {
-    padding: 2em;
-}
-
-section.conversation {
-    padding: 0 3em 0 1em;
-}
-
-/* https://patterncraft.fun/ */
 div.background__pattern {
     position: absolute;
     inset: 0;
@@ -40,10 +30,72 @@ div.background__pattern {
         radial-gradient(ellipse 80% 80% at 100% 0%, #000 50%, transparent 90%)
 }
 
-div.chat-widget {
+@media (max-width: 768px) {
+    main {
+        grid-template-columns: 1fr;
+    }
+
+    section.conversation {
+        padding: 0 1em;
+    }
+
+    div.background__pattern {
+        -webkit-mask-image: radial-gradient(ellipse 85% 70% at 100% 100%, #000 50%, transparent 90%);
+        mask-image:
+            radial-gradient(ellipse 85% 70% at 100% 100%, #000 50%, transparent 90%)
+    }
+}
+
+section.intro {
+    padding: 2em;
+}
+
+section.conversation {
+    padding: 0 3em 0 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* https://patterncraft.fun/ */
+
+
+.chat-widget {
+    flex-grow: 1;
+    display: flex;
     min-width: 100%;
-    min-height: 100%;
+    min-height: 500px;
     background: #f9fafb;
     border-radius: 1em;
     border: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+}
+
+.chat-widget__chat-history {
+    flex: 1
+}
+
+.chat-widget__message-input {
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    box-sizing: border-box;
+}
+
+.chat-widget__message-input>textarea {
+    flex-grow: 1;
+    box-sizing: border-box;
+    background: initial;
+    border: 0;
+    resize: none;
+    outline: 0;
+}
+
+.chat-widget__message-input button {
+    border: 0;
+    background: initial;
 }
