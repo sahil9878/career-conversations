@@ -1,9 +1,12 @@
 import { useRef, useState, type FunctionComponent } from "react";
 import SendMessage from "../../assets/send-message";
 
-interface MessageInputProps { }
+interface MessageInputProps {
+    sendMessage: (message: string) => void;
+    loading: boolean;
+}
 
-const MessageInput: FunctionComponent<MessageInputProps> = () => {
+const MessageInput: FunctionComponent<MessageInputProps> = ({ sendMessage, loading }) => {
     const [inputText, setInputText] = useState("");
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -16,9 +19,19 @@ const MessageInput: FunctionComponent<MessageInputProps> = () => {
         }
     };
 
-    const onSendClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const onSendClick = () => {
         console.log(`Sent text ${inputText}`)
+        sendMessage(inputText);
         setInputText("")
+    }
+
+    const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            if (!loading && inputText.trim() !== "") {
+                onSendClick();
+            }
+        }
     }
 
     return (
@@ -29,12 +42,12 @@ const MessageInput: FunctionComponent<MessageInputProps> = () => {
                 id="chat-message"
                 value={inputText}
                 onChange={onInputChange}
+                onKeyDown={onKeyDown}
                 placeholder="Type a message..."
                 rows={1}
                 style={{ overflow: "hidden", resize: "none" }}
             />
-            <button onClick={onSendClick}>
-
+            <button disabled={loading} onClick={onSendClick}>
                 <SendMessage width={24} height={24} />
             </button>
         </div>

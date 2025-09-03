@@ -30,21 +30,6 @@ div.background__pattern {
         radial-gradient(ellipse 80% 80% at 100% 0%, #000 50%, transparent 90%)
 }
 
-@media (max-width: 768px) {
-    main {
-        grid-template-columns: 1fr;
-    }
-
-    section.conversation {
-        padding: 0 1em;
-    }
-
-    div.background__pattern {
-        -webkit-mask-image: radial-gradient(ellipse 85% 70% at 100% 100%, #000 50%, transparent 90%);
-        mask-image:
-            radial-gradient(ellipse 85% 70% at 100% 100%, #000 50%, transparent 90%)
-    }
-}
 
 section.intro {
     padding: 2em;
@@ -54,6 +39,7 @@ section.conversation {
     padding: 0 3em 0 1em;
     display: flex;
     flex-direction: column;
+    max-height: 80vh;
 }
 
 
@@ -75,7 +61,10 @@ section.conversation {
 }
 
 .chat-widget__chat-history {
-    flex: 1
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
 }
 
 .chat-widget__message-input {
@@ -98,4 +87,59 @@ section.conversation {
 .chat-widget__message-input button {
     border: 0;
     background: initial;
+}
+
+.chat-widget__chat-message {
+    max-width: 70%;
+    padding: 8px 12px;
+    border-radius: 16px;
+    margin: 8px;
+    box-sizing: border-box;
+    background-color: #e5e7eb;
+}
+
+.chat-widget__chat-message--user {
+    align-self: flex-end;
+    background-color: #3b82f6;
+    color: white;
+}
+
+.chat-widget__chat-message--bot {
+    align-self: flex-start;
+    background-color: #e5e7eb;
+    color: black;
+}
+
+
+
+
+@media (max-width: 768px) {
+    main {
+        grid-template-columns: 1fr;
+    }
+
+    section.intro {
+        padding: 0 1em;
+    }
+
+    section.conversation {
+        padding: 0 1em 0.5em;
+        max-height: 50vh;
+    }
+
+    div.background__pattern {
+        -webkit-mask-image: radial-gradient(ellipse 85% 70% at 100% 100%, #000 50%, transparent 90%);
+        mask-image:
+            radial-gradient(ellipse 85% 70% at 100% 100%, #000 50%, transparent 90%)
+    }
+
+    .chat-widget {
+        min-height: unset;
+    }
+
+    .intro h1 {
+        margin: 0;
+    }
+
+
 }
