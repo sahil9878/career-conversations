@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.clients.mongoClient import mongo
 from app.clients.chatApiClient import openAIClient
 from contextlib import asynccontextmanager
-
+import os
 load_dotenv()
 
 
@@ -23,7 +23,7 @@ app.include_router(router)
 
 
 origins = [
-    "http://localhost:5173", 
+    os.getenv("FRONTEND_URL", "http://localhost:5173")
 ]
 
 app.add_middleware(

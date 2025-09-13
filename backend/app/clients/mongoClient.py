@@ -11,9 +11,7 @@ class MongoClient:
 
     async def connect(self):
         uri = os.getenv("MONGO_DB_CONNECTION_STRING", "")
-        print("Mongo URI:", uri)
         db_name = os.getenv("MONGO_DATABASE_NAME", "")
-        print("db_name", db_name)
         self.client = AsyncIOMotorClient(uri, server_api=ServerApi('1'))
         self.db = self.client[db_name]
 
