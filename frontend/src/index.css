@@ -4,7 +4,7 @@
   --chat-bubble-user: #2563eb;
   --chat-bubble-bot: #374151;
   --chat-borders: #374151;
-  --background-pattern-color: #4b5563;
+  --background-pattern-color: #374151;
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -56,6 +56,6 @@ h1 {
     --chat-bubble-user: #3b82f6;
     --chat-bubble-bot: #e5e7eb;
     --chat-borders: #e5e7eb;
-    --background-pattern-color: #d1d5db;
+    --background-pattern-color: #e5e7eb;
   }
 }
