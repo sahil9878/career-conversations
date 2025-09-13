@@ -23,7 +23,7 @@ div.background__pattern {
     position: absolute;
     inset: 0;
     z-index: -1;
-    background-image: linear-gradient(to right, #d1d5db 1px, transparent 1px), linear-gradient(to bottom, #d1d5db 1px, transparent 1px);
+    background-image: linear-gradient(to right, var(--background-pattern-color) 1px, transparent 1px), linear-gradient(to bottom, var(--background-pattern-color) 1px, transparent 1px);
     background-size: 32px 32px;
     -webkit-mask-image: radial-gradient(ellipse 80% 80% at 100% 0%, #000 50%, transparent 90%);
     mask-image:
@@ -50,9 +50,9 @@ section.conversation {
     display: flex;
     min-width: 100%;
     min-height: 500px;
-    background: #f9fafb;
+    background: var(--bg-color);
     border-radius: 1em;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--chat-borders);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -67,7 +67,7 @@ section.conversation {
 }
 
 .chat-widget__message-input {
-    border-top: 1px solid #e5e7eb;
+    border-top: 1px solid var(--chat-borders);
     display: flex;
     align-items: center;
     padding: 8px 12px;
@@ -94,19 +94,19 @@ section.conversation {
     border-radius: 16px;
     margin: 8px;
     box-sizing: border-box;
-    background-color: #e5e7eb;
 }
 
 .chat-widget__chat-message--user {
     align-self: flex-end;
-    background-color: #3b82f6;
-    color: white;
+    background-color: var(--chat-bubble-user);
+    color: var(--text-color);
 }
 
 .chat-widget__chat-message--bot {
     align-self: flex-start;
-    background-color: #e5e7eb;
-    color: black;
+    background-color: var(--chat-borders);
+    color: var(--text-color);
+    background-color: var(--chat-bubble-bot);
 }
 
 
@@ -144,4 +144,13 @@ section.conversation {
     }
 
 
+}
+
+nav svg,
+nav svg g {
+    fill: var(--text-color)
+}
+
+svg path {
+    stroke: var(--text-color)
 }

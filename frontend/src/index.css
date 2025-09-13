@@ -1,10 +1,16 @@
 :root {
+  --text-color: #e5e7eb;
+  --bg-color: #111827;
+  --chat-bubble-user: #2563eb;
+  --chat-bubble-bot: #374151;
+  --chat-borders: #374151;
+  --background-pattern-color: #4b5563;
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--text-color);
+  background-color: var(--bg-color);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -45,7 +51,11 @@ h1 {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #f9fafb;
+    --text-color: #0c385e;
+    --bg-color: #f9fafb;
+    --chat-bubble-user: #3b82f6;
+    --chat-bubble-bot: #e5e7eb;
+    --chat-borders: #e5e7eb;
+    --background-pattern-color: #d1d5db;
   }
 }
