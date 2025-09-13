@@ -9,9 +9,16 @@ export type Message = {
 const useSendMessage = () => {
 
     const [history, setHistory] = useState<Message[]>([])
+    const [chatId, setChatId] = useState<string | null>(null)
     const [loading, setLoading] = useState(false)
 
+
     const sendMessage = async (message: string) => {
+        let chat_id = chatId;
+        if (!chat_id) {
+            chat_id = crypto.randomUUID();
+            setChatId(chat_id);
+        }
         setLoading(true)
         setHistory((prev) => [...prev, { user: "user", message }])
         try {
@@ -20,7 +27,7 @@ const useSendMessage = () => {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ message })
+                body: JSON.stringify({ message, chat_id })
             })
             if (!response.ok) {
                 throw new Error("Network response was not ok");
