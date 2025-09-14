@@ -99,7 +99,7 @@ section.conversation {
 .chat-widget__chat-message--user {
     align-self: flex-end;
     background-color: var(--chat-bubble-user);
-    color: var(--text-color);
+    color: var(--chat-bubble-text-color-user);
 }
 
 .chat-widget__chat-message--bot {
