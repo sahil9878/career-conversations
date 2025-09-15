@@ -21,10 +21,9 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 app.include_router(router)
 
+origins_string = os.getenv("FRONTEND_URL", "http://localhost:5173")
+origins = origins_string.split(",")
 
-origins = [
-    os.getenv("FRONTEND_URL", "http://localhost:5173")
-]
 
 app.add_middleware(
     CORSMiddleware,
