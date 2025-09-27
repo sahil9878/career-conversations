@@ -21,6 +21,10 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 app.include_router(router)
 
+@app.get("/")
+async def healthCheck():
+    return True
+
 origins_string = os.getenv("FRONTEND_URL", "http://localhost:5173")
 origins = origins_string.split(",")
 
