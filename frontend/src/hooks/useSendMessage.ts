@@ -23,7 +23,7 @@ const useSendMessage = () => {
         setHistory((prev) => [...prev, { user: "user", message }])
         try {
             const baseUrl = import.meta.env.VITE_BASE_URL || "http://localhost:8000";
-            const response = await fetch(`${baseUrl}/chat`, {
+            const response = await fetch(`${baseUrl}/chat/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
