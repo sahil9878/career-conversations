@@ -33,7 +33,7 @@ const useSendMessage = () => {
                 buffer += response;
                 const node = document.getElementById(`chat-message-${history.length - 1}`)
                 if (!node) return
-                node.innerText = node.innerText += response
+                node.textContent = node.textContent += response
 
             });
             eventSource.onreadystatechange = (state) => {
