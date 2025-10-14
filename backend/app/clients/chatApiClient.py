@@ -1,4 +1,4 @@
-from openai import AsyncOpenAI
+from openai import OpenAI
 from openai.types.chat import ChatCompletionMessageParam, ChatCompletionFunctionToolParam, ChatCompletionAssistantMessageParam
 from openai.types.shared_params import FunctionDefinition
 import os
@@ -6,13 +6,14 @@ from dotenv import load_dotenv
 from app.clients.mongoClient import mongo
 from typing import List
 import json
+import asyncio
 
 
 load_dotenv()
 class OpenAIClient:
     async def warmup(self):
         api_key = os.getenv("OPENAI_API_KEY")
-        self.client = AsyncOpenAI(api_key=api_key)
+        self.client = OpenAI(api_key=api_key)
 
         self.context = await mongo.get_context()
         
@@ -85,7 +86,7 @@ class OpenAIClient:
             results.append({"role": "tool","content": json.dumps(result),"tool_call_id": tool_call.id})
         return results
 
-    async def send_message(self, messages: List[ChatCompletionMessageParam] = []) -> str|None:
+    async def send_message(self, messages: List[ChatCompletionMessageParam] = []):
         # opts = {
         #     "temperature":  0,
         #     "top_p":  0.9,
@@ -96,43 +97,43 @@ class OpenAIClient:
         localMessages = messages.copy()
         done = False
         while not done:
-            response = await self.client.chat.completions.create(
-            model="gpt-4.1-mini",
-            messages=
-                [{"role": "system", "content": self.system_prompt},
-                *localMessages,
-                
-            ],tools=self.tools)
+            stream = self.client.chat.completions.create(
+                model="gpt-4.1-mini",
+                stream=True,
+                messages=
+                    [{"role": "system", "content": self.system_prompt},
+                    *localMessages,
+                    
+                ],tools=self.tools)
 
-            finish_reason = response.choices[0].finish_reason
-            
-            
-            if finish_reason=="tool_calls":
-                message = response.choices[0].message
-                tool_calls = message.tool_calls
-                results = await self.handle_tool_calls(tool_calls)
-                localMessages.append(message) # type: ignore
-                localMessages.extend(results)
-            else:
-                done = True
+            for chunk in stream:
+                if chunk.choices[0].delta.content:
+                    yield chunk.choices[0].delta.content
+                    await asyncio.sleep(0.01)
+                    done=True
+                if chunk.choices[0].finish_reason=="tool_calls":
+                    message = chunk.choices[0].delta
+                    tool_calls = message.tool_calls
+                    results = await self.handle_tool_calls(tool_calls)
+                    localMessages.append(message) # type: ignore
+                    localMessages.extend(results)
 
-        return response.choices[0].message.content
-        # stream = await self.client.chat.completions.create(
-        #     model="gpt-4.1-mini",
-        #     messages=
-        #         [{"role": "system", "content": self.system_prompt},
-        #         *messages
-        #     ],
-        #     # *opts
-        #     # stream=True
-        # )
-        # response = ""
         # for chunk in stream:
-        #     curr = chunk.choices[0].delta.content
-        #     response += curr or ""
-        #     print(curr or "", end="")
+        #     if chunk.choices[0].delta.content:
+        #         buffer+=chunk.choices[0].delta.content
 
-        # return response
+        #     now = time()
+        #     if now - last_flush > 0.2 and buffer:
+        #         yield f"id:{counter}\nevent:chatCompletion\ndata:{json.dumps(buffer)}\n\n"
+        #         last_flush = now
+        #         print(buffer, end="")
+        #         counter += 1
+        #         buffer=""
+        #         await asyncio.sleep(0.005)
+        # if buffer:
+        #     yield f"id:{counter}\nevent:chatCompletion\ndata:{json.dumps(buffer)}\n\n"
+
+
         
     
     async def record_user_details(self, email="email not provided", name="Name not provided", notes="not provided", phone="not provided"):

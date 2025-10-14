@@ -3,15 +3,13 @@ import MessageInput from "./message-input";
 import ChatHistory from "./chat-history";
 import useSendMessage from "../../hooks/useSendMessage";
 
-interface ChatWidgetProps {
 
-}
 
-const ChatWidget: FunctionComponent<ChatWidgetProps> = () => {
+const ChatWidget: FunctionComponent = () => {
 
     const { sendMessage, history, loading } = useSendMessage();
-    return (<div className="chat-widget">
-        <ChatHistory history={history} loading={loading} />
+    return (<div id="chat-window" className="chat-widget">
+        <ChatHistory history={history} />
         <MessageInput sendMessage={sendMessage} loading={loading} />
     </div>);
 }

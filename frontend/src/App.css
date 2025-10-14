@@ -60,6 +60,12 @@ section.conversation {
 }
 
 .chat-widget__chat-history {
+    display: flex;
+    flex: 1;
+    overflow-y: hidden
+}
+
+.chat-widget__chat-history-scroller {
     flex: 1;
     display: flex;
     flex-direction: column;
